@@ -239,7 +239,7 @@ func (api *API) Graph(method string, data interface{}) ([]ZabbixGraph, error) {
 		return nil, &response.Error
 	}
 
-	// XXX uhg... there has got to be a better way to convert the response
+	// XXX uhg.... there has got to be a better way to convert the response
 	// to the type I want to return
 	res, err := json.Marshal(response.Result)
 	var ret []ZabbixGraph
