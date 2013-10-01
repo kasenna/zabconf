@@ -1,4 +1,4 @@
 zabconf
 =======
 
-Go programm for Zabbix configuration usin Zabbix API.
+Go programm for Zabbix configuration using Zabbix API.
