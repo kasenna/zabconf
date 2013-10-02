@@ -40,12 +40,14 @@ func (z *ZabbixError) Error() string {
 type ZabbixHost map[string]interface{}
 type ZabbixHostgroup map[string]interface{}
 type ZabbixTemplate map[string]interface{}
+type ZabbixItem map[string]interface{}
 type ZabbixGraph map[string]interface{}
 type ZabbixGraphItem map[string]interface{}
 type ZabbixHistoryItem struct {
+	Itemid string `json:"itemid"`
 	Clock  string `json:"clock"`
 	Value  string `json:"value"`
-	Itemid string `json:"itemid"`
+	Ns string `json:"ns"`
 }
 
 type API struct {
@@ -221,6 +223,27 @@ func (api *API) Template(method string, data interface{}) ([]ZabbixTemplate, err
 	// to the type I want to return
 	res, err := json.Marshal(response.Result)
 	var ret []ZabbixTemplate
+	err = json.Unmarshal(res, &ret)
+	return ret, nil
+}
+
+/**
+Interface to the item.* calls
+*/
+func (api *API) Item(method string, data interface{}) ([]ZabbixItem, error) {
+	response, err := api.ZabbixRequest("item."+method, data)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Error.Code != 0 {
+		return nil, &response.Error
+	}
+
+	// XXX uhg... there has got to be a better way to convert the response
+	// to the type I want to return
+	res, err := json.Marshal(response.Result)
+	var ret []ZabbixItem
 	err = json.Unmarshal(res, &ret)
 	return ret, nil
 }
