@@ -1,6 +1,6 @@
 /*
 main.go
-Copyright (C) 2013  Max Karpenkov
+Copyright (C) 2013-2016  Max Karpenkov
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
